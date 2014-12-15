@@ -1,6 +1,6 @@
 #Graystone
 
-[![Build Status](https://drone.io/github.com/nfrancois/graystone/SerialPort/status.png)](https://drone.io/github.com/nfrancois/graystone/latest)
+[![Build Status](https://drone.io/github.com/nfrancois/graystone/status.png)](https://drone.io/github.com/nfrancois/graystone/latest)
 
 The rise of Dart Bot !
 
