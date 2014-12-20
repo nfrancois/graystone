@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library graystone_gpio;
+part of graystone_gpio;
 
-import 'dart:async';
-import 'package:graystone/graystone.dart';
 
-part 'src/gpio/gpio_common.dart';
-part 'src/gpio/led.dart';
-part 'src/gpio/button.dart';
+class Button extends InputPin {
+
+  Button(GpioConnection connection, int pin, {GpioVoltage value: GpioVoltage.LOW}) : super(connection, pin, value: value);
+
+}
