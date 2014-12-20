@@ -18,4 +18,4 @@ import 'dart:async';
 import 'package:firmata/firmata.dart';
 import 'package:graystone/graystone_gpio.dart';
 
-part 'src/firmata/firmata_common.dart';
+part 'src/firmata/firmata_impl.dart';

@@ -16,4 +16,4 @@ library graystone;
 
 import 'dart:async';
 
-part 'src/core/core_common.dart';
+part 'src/core/core_impl.dart';

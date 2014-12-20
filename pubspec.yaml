@@ -1,6 +1,6 @@
 name: graystone
-version: 0.0.1-dev
-description: We build robots !
+version: 0.1.0-dev
+description: Robots with Dart
 author: Nicolas Francois  <nicolas.franc@gmail.com>
 homepage: https://github.com/nfrancois/greystoke
 environnment:
