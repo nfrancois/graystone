@@ -17,6 +17,8 @@ part of graystone_gpio;
 
 class Button extends InputPin {
 
-  Button(GpioConnection connection, int pin, {GpioVoltage value: GpioVoltage.LOW}) : super(connection, pin, value: value);
+  Button(GpioConnection connection, int pin) : super(connection, pin);
+
+
 
 }

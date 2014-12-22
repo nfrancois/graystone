@@ -56,9 +56,7 @@ abstract class OutputPin extends Gpio  {
 
   GpioVoltage _value = GpioVoltage.LOW;
 
-  OutputPin(final GpioConnection connection, final int pin, {GpioVoltage value: GpioVoltage.LOW}) : super(connection, pin, GpioPinMode.OUTPUT) {
-    _value = value;
-  }
+  OutputPin(final GpioConnection connection, final int pin) : super(connection, pin, GpioPinMode.OUTPUT) ;
 
   bool get isOn => _value == GpioVoltage.HIGH;
   bool get isOff => _value == GpioVoltage.LOW;
