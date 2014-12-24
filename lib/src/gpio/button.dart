@@ -15,10 +15,35 @@
 part of graystone_gpio;
 
 
-class Button extends InputPin {
+class Button extends Gpio {
 
-  Button(GpioConnection connection, int pin) : super(connection, pin);
+  StreamController _pressController = new StreamController();
+  StreamController _releaseController = new StreamController();
 
+  Button(GpioConnection connection, int pin) : super(connection, pin, GpioPinMode.INPUT);
 
+  Future init() =>
+    super.init().then((_){
+      (connection as GpioConnection).onDigitalRead.where((pinState) => pinState.pin == pin).listen((pinState){
+        switch(pinState.value){
+          case 0:
+            _value = GpioVoltage.LOW;
+            _pressController.add(true);
+            break;
+          case 1:
+            _value = GpioVoltage.HIGH;
+            _releaseController.add(true);
+            break;
+        }
+      });
+    });
+
+  Stream get onPress => _pressController.stream;
+
+  Stream get onRelease => _releaseController.stream;
+
+  bool get isPressed => _value == GpioVoltage.HIGH;
+
+  bool get isReleased => _value == GpioVoltage.LOW;
 
 }

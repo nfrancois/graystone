@@ -28,16 +28,22 @@ abstract class Gpio extends Device {
 
   final int pin;
   final GpioPinMode mode;
+  GpioVoltage _value;
 
   Gpio(connection, this.pin, this.mode) : super(connection);
+
+  Future init() =>
+    (connection as GpioConnection).pinMode(pin, mode);
 
 }
 
 abstract class GpioConnection extends Connection {
 
-  initPin(int pin, GpioPinMode mode);
+  Future pinMode(int pin, GpioPinMode mode);
 
   Future digitalWrite(int pin, GpioVoltage value);
+
+  Stream get onDigitalRead;
 
 }
 
@@ -45,36 +51,6 @@ class InputPin extends Gpio {
 
   GpioVoltage _value = GpioVoltage.LOW;
 
-  InputPin(final GpioConnection connection, final int pin) : super(connection, pin, GpioPinMode.INPUT);
-
-  Future init() =>
-    (connection as GpioConnection).initPin(pin, GpioPinMode.INPUT);
-
-}
-
-abstract class OutputPin extends Gpio  {
-
-  GpioVoltage _value = GpioVoltage.LOW;
-
-  OutputPin(final GpioConnection connection, final int pin) : super(connection, pin, GpioPinMode.OUTPUT) ;
-
-  bool get isOn => _value == GpioVoltage.HIGH;
-  bool get isOff => _value == GpioVoltage.LOW;
-
-  Future init() =>
-    (connection as GpioConnection).initPin(pin, GpioPinMode.OUTPUT);
-
-  Future on() {
-    _value = GpioVoltage.HIGH;
-    return (connection as GpioConnection).digitalWrite(pin, _value);
-  }
-
-  Future  off() {
-    _value = GpioVoltage.LOW;
-    return (connection as GpioConnection).digitalWrite(pin, _value);
-  }
-
-  Future toggle() =>
-    isOn ? off() : on();
+  InputPin(final GpioConnection connection, final int pin) : super(connection, pin, GpioPinMode.OUTPUT);
 
 }

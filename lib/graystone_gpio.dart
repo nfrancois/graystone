@@ -16,6 +16,7 @@ library graystone_gpio;
 
 import 'dart:async';
 import 'package:graystone/graystone.dart';
+import 'package:gpio_commons/gpio_commons.dart';
 
 part 'src/gpio/gpio_common.dart';
 part 'src/gpio/led.dart';

@@ -15,9 +15,27 @@
 part of graystone_gpio;
 
 
-class Led extends OutputPin {
+class Led extends Gpio {
 
-  Led(GpioConnection connection, int pin, {GpioVoltage value: GpioVoltage.LOW}) : super(connection, pin, value: value);
+  GpioVoltage _value = GpioVoltage.LOW;
+
+  Led(GpioConnection connection, int pin) : super(connection, pin, GpioPinMode.OUTPUT);
+
+
+  bool get isOn => _value == GpioVoltage.HIGH;
+  bool get isOff => _value == GpioVoltage.LOW;
+
+  Future on() {
+    _value = GpioVoltage.HIGH;
+    return (connection as GpioConnection).digitalWrite(pin, _value);
+  }
+
+  Future  off() {
+    _value = GpioVoltage.LOW;
+    return (connection as GpioConnection).digitalWrite(pin, _value);
+  }
+
+  Future toggle() => isOn ? off() : on();
 
   void strobe([Duration frequency = const Duration(milliseconds: 500)]){
     new Timer.periodic(frequency, (_) {

@@ -18,11 +18,16 @@ import 'package:graystone/graystone_gpio.dart';
 
 void main() {
 
-	final firmataConn = new FirmataConnection();
-	final led = new Led(firmataConn, 5);
+  final firmataConn = new FirmataConnection();
+  final led = new Led(firmataConn, 5);
+  final button = new Button(firmataConn, 2);
 
-	new Robot([firmataConn], [led])
-		..behaviour = (() => led.on())
-		..start();
+  new Robot([firmataConn], [led, button])
+    ..behaviour = (() {
+      button.onPress.listen((_) => led.on());
+      button.onRelease.listen((_) => led.off());
+    })
+    ..start();
 
 }
+

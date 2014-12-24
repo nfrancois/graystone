@@ -33,22 +33,21 @@ class FirmataConnection extends GpioConnection {
 
   String get portName => portName;
 
-  initPin(int pin, GpioPinMode mode) =>
+  Future pinMode(int pin, GpioPinMode mode) =>
     _board.pinMode(pin, mode == GpioPinMode.INPUT ? PinModes.INPUT : PinModes.OUTPUT);
 
-  inputPin(int pin) {
+  Future inputPin(int pin) =>
     _board.pinMode(pin, PinModes.INPUT);
-  }
 
-  outputPin(int pin) {
+  Future outputPin(int pin) =>
     _board.pinMode(pin, PinModes.OUTPUT);
-  }
 
   Future _analogWrite(int pin, int value) =>
     _board.analogWrite(pin, value);
 
-
   Future digitalWrite(int pin, GpioVoltage value) =>
-    _board.digitalWrite(pin, value==GpioVoltage.HIGH ? PinValue.HIGH : PinValue.LOW);
+    _board.digitalWrite(pin, value == GpioVoltage.HIGH ? PinValue.HIGH : PinValue.LOW);
+
+  Stream get onDigitalRead => _board.onDigitalRead;
 
 }
