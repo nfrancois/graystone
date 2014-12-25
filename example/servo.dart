@@ -12,14 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library graystone_gpio;
-
-import 'dart:async';
 import 'package:graystone/graystone.dart';
-import 'package:gpio_commons/gpio_commons.dart';
+import 'package:graystone/graystone_firmata.dart';
+import 'package:graystone/graystone_gpio.dart';
 
-part 'src/gpio/gpio_common.dart';
-part 'src/gpio/led.dart';
-part 'src/gpio/button.dart';
-part 'src/gpio/sensor.dart';
-part 'src/gpio/servomotor.dart';
+void main() {
+
+  final firmataConn = new FirmataConnection();
+  final servo = new ServoMotor(firmataConn, 2);
+
+  new Robot([firmataConn], [servo])
+    ..behaviour = (() {
+      var angle = 0;
+      every(new Duration(milliseconds: 100), (_) {
+        servo.angle = angle;
+        angle++;
+        angle%=180;
+      });
+    })
+    ..start();
+
+}

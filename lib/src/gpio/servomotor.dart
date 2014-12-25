@@ -12,14 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library graystone_gpio;
+part of graystone_gpio;
 
-import 'dart:async';
-import 'package:graystone/graystone.dart';
-import 'package:gpio_commons/gpio_commons.dart';
+class ServoMotor extends Gpio {
 
-part 'src/gpio/gpio_common.dart';
-part 'src/gpio/led.dart';
-part 'src/gpio/button.dart';
-part 'src/gpio/sensor.dart';
-part 'src/gpio/servomotor.dart';
+  num _angle;
+
+  ServoMotor(GpioConnection connection, int pin) : super(connection, pin);
+
+  int get angle => _angle;
+
+  void set angle(int value)  {
+    _angle = value;
+    _gpioConnection.servoWrite(pin, _angle);
+  }
+
+}

@@ -22,7 +22,7 @@ void main() {
 	final led = new Led(firmataConn, 5);
 
 	new Robot([firmataConn], [led])
-		..behaviour = (() => led.on())
+		..behaviour = (() => led.strobe())
 		..start();
 
 }

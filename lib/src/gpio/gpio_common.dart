@@ -32,6 +32,8 @@ abstract class Gpio extends Device {
 
   GpioConnection get _gpioConnection => (connection as GpioConnection);
 
+  Future init() => new Future.value();// Not init by default
+
 }
 
 abstract class DigitalGpio extends Gpio {
@@ -51,8 +53,6 @@ abstract class AnalogicGpio extends Gpio {
 
   AnalogicGpio(GpioConnection connection, int pin) : super(connection, pin);
 
-  Future init() => new Future.value();// Not init for analogic
-
 }
 
 abstract class GpioConnection extends Connection {
@@ -62,6 +62,8 @@ abstract class GpioConnection extends Connection {
   Future digitalWrite(int pin, GpioVoltage value);
 
   Future analogWrite(int pin, int value);
+
+  Future servoWrite(int pin, int angle);
 
   Stream<PinState> get onDigitalRead;
 

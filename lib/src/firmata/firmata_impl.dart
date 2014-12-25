@@ -46,4 +46,6 @@ class FirmataConnection extends GpioConnection {
 
   Stream<PinState> get onAnalogRead => _board.onAnalogRead;
 
+  Future servoWrite(int pin, int angle) => _board.servoWrite(pin, angle);
+
 }
