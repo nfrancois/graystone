@@ -42,8 +42,8 @@ class FirmataConnection extends GpioConnection {
   Future digitalWrite(int pin, GpioVoltage value) =>
     _board.digitalWrite(pin, value == GpioVoltage.HIGH ? PinValue.HIGH : PinValue.LOW);
 
-  Stream get onDigitalRead => _board.onDigitalRead;
+  Stream<PinState> get onDigitalRead => _board.onDigitalRead.asBroadcastStream();
 
-  Stream get onAnalogRead => _board.onAnalogRead;
+  Stream<PinState> get onAnalogRead => _board.onAnalogRead;
 
 }

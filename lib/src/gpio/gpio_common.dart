@@ -37,7 +37,7 @@ abstract class Gpio extends Device {
 abstract class DigitalGpio extends Gpio {
 
   final GpioPinMode mode;
-  GpioVoltage _value;
+  GpioVoltage _value = GpioVoltage.LOW;
 
   DigitalGpio(GpioConnection connection, int pin, this.mode) : super(connection, pin);
 
@@ -63,7 +63,8 @@ abstract class GpioConnection extends Connection {
 
   Future analogWrite(int pin, int value);
 
-  Stream get onDigitalRead;
+  Stream<PinState> get onDigitalRead;
 
-  Stream get onAnalogRead;
+  Stream<PinState> get onAnalogRead;
+
 }

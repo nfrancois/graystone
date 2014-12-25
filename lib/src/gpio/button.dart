@@ -24,15 +24,19 @@ class Button extends DigitalGpio {
 
   Future init() =>
     super.init().then((_){
-      _gpioConnection.onDigitalRead.where((pinState) => pinState.pin == pin).listen((pinState){
+      (connection as GpioConnection).onDigitalRead.where((pinState) => pinState.pin == pin).listen((pinState){
         switch(pinState.value){
-          case 0:
-            _value = GpioVoltage.LOW;
-            _pressController.add(true);
+          case 0:// TODO replace 0 by constant
+            if(isReleased){
+              _value = GpioVoltage.LOW;
+              _pressController.add(true);
+            }
             break;
-          case 1:
-            _value = GpioVoltage.HIGH;
-            _releaseController.add(true);
+          case 1:// TODO replace 0 by constant
+            if(isPressed) {
+              _value = GpioVoltage.HIGH;
+              _releaseController.add(true);
+            }
             break;
         }
       });
@@ -42,8 +46,8 @@ class Button extends DigitalGpio {
 
   Stream get onRelease => _releaseController.stream;
 
-  bool get isPressed => _value == GpioVoltage.HIGH;
+  bool get isPressed => _value == GpioVoltage.LOW;
 
-  bool get isReleased => _value == GpioVoltage.LOW;
+  bool get isReleased => _value == GpioVoltage.HIGH;
 
 }

@@ -20,12 +20,14 @@ void main() {
 
   final firmataConn = new FirmataConnection();
   final led = new Led(firmataConn, 5);
-  final button = new Button(firmataConn, 2);
+  final button1 = new Button(firmataConn, 2);
+  final button2 = new Button(firmataConn, 3);
 
-  new Robot([firmataConn], [led, button])
+  new Robot([firmataConn], [led, button1, button2])
     ..behaviour = (() {
-      button.onPress.listen((_) => led.on());
-      button.onRelease.listen((_) => led.off());
+      var toggle = (_) => led.toggle();
+      button1..onPress.listen(toggle)..onRelease.listen(toggle);
+      button2..onPress.listen(toggle)..onRelease.listen(toggle);
     })
     ..start();
 
