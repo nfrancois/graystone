@@ -15,7 +15,7 @@
 part of graystone_gpio;
 
 
-class Button extends Gpio {
+class Button extends DigitalGpio {
 
   StreamController _pressController = new StreamController();
   StreamController _releaseController = new StreamController();
@@ -24,7 +24,7 @@ class Button extends Gpio {
 
   Future init() =>
     super.init().then((_){
-      (connection as GpioConnection).onDigitalRead.where((pinState) => pinState.pin == pin).listen((pinState){
+      _gpioConnection.onDigitalRead.where((pinState) => pinState.pin == pin).listen((pinState){
         switch(pinState.value){
           case 0:
             _value = GpioVoltage.LOW;

@@ -15,7 +15,7 @@
 part of graystone_gpio;
 
 
-class Led extends Gpio {
+class Led extends DigitalGpio {
 
   GpioVoltage _value = GpioVoltage.LOW;
 
@@ -27,12 +27,12 @@ class Led extends Gpio {
 
   Future on() {
     _value = GpioVoltage.HIGH;
-    return (connection as GpioConnection).digitalWrite(pin, _value);
+    return _gpioConnection.digitalWrite(pin, _value);
   }
 
   Future  off() {
     _value = GpioVoltage.LOW;
-    return (connection as GpioConnection).digitalWrite(pin, _value);
+    return _gpioConnection.digitalWrite(pin, _value);
   }
 
   Future toggle() => isOn ? off() : on();

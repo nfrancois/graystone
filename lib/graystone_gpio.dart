@@ -21,3 +21,4 @@ import 'package:gpio_commons/gpio_commons.dart';
 part 'src/gpio/gpio_common.dart';
 part 'src/gpio/led.dart';
 part 'src/gpio/button.dart';
+part 'src/gpio/sensor.dart';

@@ -27,13 +27,31 @@ enum GpioVoltage {
 abstract class Gpio extends Device {
 
   final int pin;
+
+  Gpio(connection, this.pin) : super(connection);
+
+  GpioConnection get _gpioConnection => (connection as GpioConnection);
+
+}
+
+abstract class DigitalGpio extends Gpio {
+
   final GpioPinMode mode;
   GpioVoltage _value;
 
-  Gpio(connection, this.pin, this.mode) : super(connection);
+  DigitalGpio(GpioConnection connection, int pin, this.mode) : super(connection, pin);
 
-  Future init() =>
-    (connection as GpioConnection).pinMode(pin, mode);
+  Future init() => _gpioConnection.pinMode(pin, mode);
+
+}
+
+abstract class AnalogicGpio extends Gpio {
+
+  num _value;
+
+  AnalogicGpio(GpioConnection connection, int pin) : super(connection, pin);
+
+  Future init() => new Future.value();// Not init for analogic
 
 }
 
@@ -43,14 +61,9 @@ abstract class GpioConnection extends Connection {
 
   Future digitalWrite(int pin, GpioVoltage value);
 
+  Future analogWrite(int pin, int value);
+
   Stream get onDigitalRead;
 
-}
-
-class InputPin extends Gpio {
-
-  GpioVoltage _value = GpioVoltage.LOW;
-
-  InputPin(final GpioConnection connection, final int pin) : super(connection, pin, GpioPinMode.OUTPUT);
-
+  Stream get onAnalogRead;
 }

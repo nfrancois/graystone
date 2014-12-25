@@ -12,9 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library graystone;
+import 'package:graystone/graystone.dart';
+import 'package:graystone/graystone_firmata.dart';
+import 'package:graystone/graystone_gpio.dart';
 
-import 'dart:async';
 
-part 'src/core/core_impl.dart';
-part 'src/core/time.dart';
+void main() {
+
+  final firmataConn = new FirmataConnection();
+  final tmp35z = new TemperatureSensor(firmataConn, 2, toCelcius: (value) => (value*500)/1024);
+
+  new Robot([firmataConn], [tmp35z])
+    ..behaviour = (() => every(new Duration(seconds: 1), (_) => print("Current temperature is ${tmp35z.celciusDegree}")))
+    ..start();
+
+}
+

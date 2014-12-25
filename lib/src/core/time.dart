@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library graystone;
+part of graystone;
 
-import 'dart:async';
-
-part 'src/core/core_impl.dart';
-part 'src/core/time.dart';
+void every(Duration duration, void callback(Timer timer)) {
+  new Timer.periodic(duration, callback);
+}
