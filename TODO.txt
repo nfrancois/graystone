@@ -1,0 +1,17 @@
+Led :
+  brightness(brightness_int)
+
+TemperatureSensor
+  fromFahrenheit((int value) => num)
+  Fahrenheit
+
+Sensor
+
+
+servoMotor
+  angle(int)
+  currentAngle
+
+
+
+

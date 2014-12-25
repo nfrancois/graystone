@@ -18,7 +18,8 @@ typedef num ConversionValueFormumat(int);
 
 class Sensor extends AnalogicGpio {
 
-  StreamController _valuesController = new StreamController<num>();
+  StreamController<num> _valuesController = new StreamController<num>();
+  Stream<num> _valuesStream;
 
   Sensor(GpioConnection connection, int pin) : super(connection, pin);
 
@@ -30,7 +31,12 @@ class Sensor extends AnalogicGpio {
     return new Future.value();
   }
 
-  Stream<num> get values => _valuesController.stream;
+  Stream<num> get values {
+    if(_valuesStream == null){
+      _valuesStream = _valuesController.stream.asBroadcastStream();
+    }
+    return _valuesStream;
+  }
 
 }
 
