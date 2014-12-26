@@ -31,6 +31,8 @@ class FirmataConnection extends GpioConnection {
     });
   }
 
+  Future close() => _board.close();
+
   String get portName => portName;
 
   Future pinMode(int pin, GpioPinMode mode) =>

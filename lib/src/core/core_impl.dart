@@ -18,6 +18,8 @@ abstract class Connection {
 
   Future open();
 
+  Future close();
+
 }
 
 abstract class Device {
@@ -44,6 +46,10 @@ class Robot {
    Future.wait(connections.map((conn) => conn.open()), eagerError: true)
          .then((_) => Future.wait(devices.map((device) => device.init())))
          .then((_) => behaviour());
+  }
+
+  void stop(){
+    connections.forEach((connection) => connection.close());
   }
 
 }
