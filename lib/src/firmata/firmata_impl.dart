@@ -14,7 +14,7 @@
 
 part of graystone_firmata;
 
-class FirmataConnection extends GpioConnection {
+class FirmataConnection implements GpioConnection {
 
   String _portName;
   Board _board;
