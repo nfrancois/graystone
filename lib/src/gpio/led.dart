@@ -21,8 +21,8 @@ class Led extends DigitalGpio {
 
   Led(GpioConnection connection, int pin) : super(connection, pin, GpioPinMode.OUTPUT);
 
-
   bool get isOn => _value == GpioVoltage.HIGH;
+
   bool get isOff => _value == GpioVoltage.LOW;
 
   Future on() {
@@ -36,6 +36,10 @@ class Led extends DigitalGpio {
   }
 
   Future toggle() => isOn ? off() : on();
+
+  void set brightness(int value) {
+    _gpioConnection.analogWrite(pin, value);
+  }
 
   void strobe([Duration frequency = const Duration(milliseconds: 500)]){
     new Timer.periodic(frequency, (_) {
