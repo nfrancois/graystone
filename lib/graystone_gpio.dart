@@ -1,4 +1,4 @@
-// Copyright (c) 2014, Nicolas François
+// Copyright (c) 2014-2015, Nicolas François
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,6 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
+// limitations under the License.language governing permissions and
 // limitations under the License.
 
 library graystone_gpio;
@@ -17,6 +18,8 @@ library graystone_gpio;
 import 'dart:async';
 import 'package:graystone/graystone.dart';
 import 'package:gpio_commons/gpio_commons.dart';
+
+export 'package:gpio_commons/gpio_commons.dart';
 
 part 'src/gpio/gpio_common.dart';
 part 'src/gpio/led.dart';

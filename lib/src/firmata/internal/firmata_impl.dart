@@ -1,4 +1,4 @@
-// Copyright (c) 2014, Nicolas François
+// Copyright (c) 2014-2015, Nicolas François
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,28 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of graystone_firmata;
+part of graystone_firmata_internal;
 
-class FirmataConnection implements GpioConnection {
+abstract class FirmataConnectionProvider {
 
+  Future<Board> connect(portName);
+
+}
+
+abstract class AbstractFirmataConnection implements GpioConnection {
+
+  final FirmataConnectionProvider _provider;
   String _portName;
   Board _board;
 
-  FirmataConnection([String portname]) {
-    this._portName = portname;
-  }
+
+  AbstractFirmataConnection(this._portName, this._provider);
 
   Future open() {
-    Future<Board> isConnected = (_portName == null) ? Board.detect() : Board.fromPortName(portName);
+    Future<Board> isConnected = _provider.connect(_portName);
     return isConnected.then((b) {
+      print("ok");
       _board = b;
       return new Future.value();
     });
   }
 
   Future close() => _board.close();
-
-  String get portName => portName;
 
   Future pinMode(int pin, GpioPinMode mode) =>
     _board.pinMode(pin, mode == GpioPinMode.INPUT ? PinModes.INPUT : PinModes.OUTPUT);

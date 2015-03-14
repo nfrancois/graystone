@@ -12,8 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of graystone;
+part of graystone_firmata_chrome;
 
-void every(Duration duration, void callback(Timer timer)) {
-  new Timer.periodic(duration, callback);
+class FirmataConnection extends AbstractFirmataConnection {
+
+
+  FirmataConnection([String portName]) : super(portName, new ChromeFirmataConnectionProvider());
+
+}
+
+class ChromeFirmataConnectionProvider extends FirmataConnectionProvider {
+
+  Future<Board> connect(portName) => (portName == null) ? detect() : fromPortName(portName);
+
 }

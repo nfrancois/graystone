@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of graystone;
+library graystone_firmata_internal;
 
-void every(Duration duration, void callback(Timer timer)) {
-  new Timer.periodic(duration, callback);
-}
+import 'dart:async';
+import 'package:firmata/firmata.dart';
+import 'package:graystone/graystone_gpio.dart';
+
+part 'internal/firmata_impl.dart';

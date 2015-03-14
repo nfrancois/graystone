@@ -1,4 +1,4 @@
-// Copyright (c) 2014, Nicolas François
+// Copyright (c) 2014-2015, Nicolas François
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 library graystone_firmata;
 
 import 'dart:async';
+import 'src/firmata/firmata_impl_internal.dart';
 import 'package:firmata/firmata.dart';
-import 'package:graystone/graystone_gpio.dart';
 
-part 'src/firmata/firmata_impl.dart';
+part 'src/firmata/native/firmata_native_impl.dart';

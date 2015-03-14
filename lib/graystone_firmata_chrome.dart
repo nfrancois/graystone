@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of graystone;
+library graystone_firmata_chrome;
 
-void every(Duration duration, void callback(Timer timer)) {
-  new Timer.periodic(duration, callback);
-}
+import 'dart:async';
+import 'src/firmata/firmata_impl_internal.dart';
+import 'package:firmata/firmata_chrome.dart';
+
+part 'src/firmata/chrome/firmata_chrome_impl.dart';
