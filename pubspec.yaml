@@ -1,12 +1,12 @@
 name: graystone
-version: 0.2.0
+version: 0.2.1
 description: Robots with Dart
 author: Nicolas Francois  <nicolas.franc@gmail.com>
 homepage: https://github.com/nfrancois/greystoke
 environnment:
-  sdk: '>=1.8.0 <2.0.0'
+  sdk: '>=1.9.1 <2.0.0'
 dependencies:
-  firmata: ">=0.3.0 <0.4.0"
+  firmata: ">=0.3.1 <0.4.0"
   gpio_commons: ">=0.1.0 <0.2.0"
 dev_dependencies:
   unittest: ">=0.11.4 <0.12.0"

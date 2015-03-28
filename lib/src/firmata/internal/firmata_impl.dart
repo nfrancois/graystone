@@ -29,13 +29,9 @@ abstract class AbstractFirmataConnection implements GpioConnection {
 
   AbstractFirmataConnection(this._portName, this._provider);
 
-  Future open() {
-    Future<Board> isConnected = _provider.connect(_portName);
-    return isConnected.then((b) {
-      print("ok");
-      _board = b;
-      return new Future.value();
-    });
+  Future open() async {
+    _board = await _provider.connect(_portName);
+    return true;
   }
 
   Future close() => _board.close();

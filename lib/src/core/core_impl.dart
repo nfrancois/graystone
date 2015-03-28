@@ -42,10 +42,10 @@ class Robot {
 
   Robot(this.connections, this.devices);
 
-  void start(){
-   Future.wait(connections.map((conn) => conn.open()), eagerError: true)
-         .then((_) => Future.wait(devices.map((device) => device.init())))
-         .then((_) => behaviour());
+  void start() async {
+    await Future.wait(connections.map((conn) => conn.open()), eagerError: true);
+    await Future.wait(devices.map((device) => device.init()));
+    behaviour();
   }
 
   void stop(){
