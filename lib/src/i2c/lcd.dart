@@ -75,6 +75,7 @@ class Lcd {
   Lcd(this.connection, {List pins, List size}){
     //_address = this.address || 0x27;
     connection.i2cConfig();
+    _address = this.address || 0x27;
   }
 
 
@@ -85,7 +86,9 @@ class Lcd {
 
   // TODO setCursor(int x, int y)
 
+
   Future _writeData(int value) => _sendData(value, RS);
+
 
   Future _sendData(int value, int mode) async {
     final highnib = value & 0xf0;
@@ -97,11 +100,18 @@ class Lcd {
 
   Future _sendCommand(int value) => _sendData(value, 0);
 
+
+    await (highnib | mode);
+    await _write4bits(highnib | mode);
+    return true;
+  }
+
   Future _write4bits(int value) async {
     await _expanderWrite(value);
     await _pulseEnable(value);
     return true;
   }
+
 
   Future _expanderWrite(int value) => connection.i2cWrite(_address, [(value | _backlightVal) & 0xFF]);
 

@@ -6,9 +6,9 @@ homepage: https://github.com/nfrancois/greystoke
 environnment:
   sdk: '>=1.9.1 <2.0.0'
 dependencies:
-  #firmata: ">=0.3.1 <0.4.0"
-  firmata:
-    path: ../firmata
+  firmata: ">=0.3.1 <0.4.0"
+  #firmata:
+  #  path: ../firmata
   gpio_commons: ">=0.1.0 <0.2.0"
 dev_dependencies:
   unittest: ">=0.11.4 <0.12.0"
