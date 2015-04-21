@@ -15,7 +15,7 @@
 part of graystone_i2c;
 
 
-class I2CConnection  {
+class I2CConnexion  {
 
   Future i2cConfig([delay = 0]);
 
@@ -23,4 +23,8 @@ class I2CConnection  {
 
   Future i2cRead(int address, int numBytes);
 
+}
+
+class I2CDevice {
+    
 }

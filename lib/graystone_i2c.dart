@@ -19,3 +19,4 @@ import 'dart:async';
 
 part 'src/i2c/commons_i2c.dart';
 part 'src/i2c/lcd.dart';
+part 'src/i2c/color_display.dart';
