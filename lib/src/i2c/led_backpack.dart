@@ -20,7 +20,7 @@ part of graystone_i2c;
 //
 
 class LedBackpack extends I2CDevice {
-    
+
     // blink rate defines
     final HT16K33_BLINK_CMD = 0x80;
     final HT16K33_BLINK_DISPLAYON = 0x01;
@@ -38,59 +38,59 @@ class LedBackpack extends I2CDevice {
     final LED_RED = 1;
     final LED_YELLOW = 2;
     final LED_GREEN = 3;
-    
+
     // brightness
-    final MAX_BRIGHTNESS = 15
-    
-    
+    final MAX_BRIGHTNESS = 15;
+
+
     int boardAddress;   // i2c address
     int blinkRate; // blink rate
     int brightness; // brightness
-    
+
     ColorDisplay(I2Connection connection, this.boardAddress, this.blinkRate, this.brightness): super(connection);
-    
+
     Future init() async {
         await clear();
         await connection.i2Config();
         return true;
     }
-    
-    /// Set the user's desired blink rate (0 - 3)    
+
+    /// Set the user's desired blink rate (0 - 3)
     Future set blinkRate(int value) async {
         if(value > 3){
-            value = 0 
+            value = 0;
         }
-        connection.i2cWrite(boardAddress, (HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | (value << 1)))
-    }    
+        connection.i2cWrite(boardAddress, (HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | (value << 1)));
+    }
 
-    /// Turn oscillator on or off 
+    /// Turn oscillator on or off
     Future set oscillator(int value){
         return connection.i2cWrite(boardAddress, value);
-    }    
-    
+    }
+
     /// Set the brightness level (0 -15) for the entire display
     Future set blinkRate(int value) async {
         if(value > 15){
-            value = 15 
+            value = 15 ;
         }
-        connection.i2cWrite(0x70, brightness)
+        connection.i2cWrite(0x70, brightness);
     }
-        
-    
+
+
     /// Set all led's to off.
-    Future clear(){
+    Future clear() async {
         for(int row=0; row<8; row++){
             await connection.i2cWrite(0x70, row*2, 0, 0);
             await connection.i2cWrite(0x70, (row*2+1), 0, 0);
-            
-            for (int col = 0, col <8; col++) {
+
+            for (int col = 0; col <8; col++) {
               // self.display_buffer[row][column] = 0
             }
         }
     }
 
 
-    
+
     /*def set_pixel(self, row, column, color, suppress_write):
         # rows 0,2,4,6,8,10,12,14 are green
         # rows 1,3,5,7,9,11,13,15 are red
@@ -136,19 +136,19 @@ class LedBackpack extends I2CDevice {
             self.firmata.i2c_write(0x70, row * 2, 0, green)
             self.firmata.i2c_write(0x70, row * 2 + 1, 0, red)
             */
-            
+
     Future setPixel(int col, int row, int color, boolean suppressWrite ) {
         // TODO check pixels range
         //for(int row=0; row<8; row++){
-            
-            for (int col = 0, col <8; col++) { 
-            
-                
+
+            for (int col = 0; col <8; col++) {
+
+
             }
         //}
-    }      
-    
+    }
+
     Future close() => connection.close();
-    
+
 }
 

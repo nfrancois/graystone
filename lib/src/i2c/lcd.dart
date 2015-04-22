@@ -99,9 +99,7 @@ class Lcd {
   }
 
   Future _sendCommand(int value) => _sendData(value, 0);
-
-
-    await (highnib | mode);
+    await _write4bits(highnib | mode);
     await _write4bits(highnib | mode);
     return true;
   }
